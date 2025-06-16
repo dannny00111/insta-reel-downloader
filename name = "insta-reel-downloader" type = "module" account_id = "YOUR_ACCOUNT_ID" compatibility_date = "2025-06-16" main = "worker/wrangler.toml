@@ -1,6 +1,0 @@
-name = "insta-reel-downloader"
-type = "module"
-account_id = "2ca4b3272be14f35caa35c8c33e4372d"
-compatibility_date = "2025-06-16"
-main = "worker/index.js"
-usage_model = "unbound"
