@@ -5,11 +5,15 @@ export default {
     if (!inputUrl) return new Response("Missing `url` query param", { status: 400 });
 
     const proxyAPI = `https://proxy.scrapeops.io/v1/browser?api_key=free&url=${encodeURIComponent("https://igram.io/i/")}&render_js=false&method=POST&post_body=url=${encodeURIComponent(inputUrl)}&content_type=application/x-www-form-urlencoded`;
-
+´
     try {
       const htmlRes = await fetch(proxyAPI);
       const html = await htmlRes.text();
-      const match = html.match(/href="(https:\/\/[^"]+\.mp4[^"]*)"/);
+      const match =
+  html.match(/href="(https:\/\/[^"]+\.mp4[^"]*)"/i) ||
+  html.match(/"contentUrl":"(https:\/\/[^"]+\.mp4[^"]*)"/i) ||
+  html.match(/<video[^>]+src="(https:\/\/[^"]+\.mp4[^"]*)"/i);
+
 
       if (!match) return new Response("No video URL found", { status: 404 });
 
